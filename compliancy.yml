@@ -1,0 +1,37 @@
+---
+- name: configure the Windows Server
+  hosts: win
+  gather_facts: no
+  tasks:
+  - name: Enable firewall for Domain, Public and Private profiles
+    win_firewall:
+      state: enabled
+      profiles:
+      - Domain
+      - Private
+      - Public
+
+  - name: Add User
+    win_user:
+      name: my_user
+      password: "Ansible123"
+      state: present
+      groups: 
+        - Users
+
+  - name: Disable SMB1 to improve security
+    win_feature: 
+      name: "FS-SMB1" 
+      state: absent 
+    register: win_feature
+
+  - name: reboot if installing Web-Server feature requires it
+    win_reboot:
+    when: win_feature.reboot_required
+
+  - name: Install all security updates
+    win_updates:
+      category_names:
+        - SecurityUpdates
+      reboot: yes
+      log_path: c:\ansible_wu.txt
