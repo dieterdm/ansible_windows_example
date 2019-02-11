@@ -1,6 +1,6 @@
 ---
 - name: configure the Windows Server
-  hosts: windows_server
+  hosts: windows_webserver
   gather_facts: no
   tasks:
   - name: Enable firewall for Domain, Public and Private profiles
