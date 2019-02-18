@@ -30,9 +30,9 @@
     win_reboot:
     when: win_feature.reboot_required
 
-  - name: Install all security updates
-    win_updates:
-      category_names:
-        - SecurityUpdates
-      reboot: yes
-      log_path: c:\ansible_wu.txt
+ # - name: Install all security updates
+ #   win_updates:
+ #     category_names:
+ #       - SecurityUpdates
+ #     reboot: yes
+ #     log_path: c:\ansible_wu.txt
